@@ -1,10 +1,10 @@
-const http = require("http");
 const fs = require("fs");
+const http = require("http");
 const ejs = require("ejs");
 
 const server = http.createServer((req, res) => {
-  if (req.url === "/") {
-    // Carico il template EJS
+if (req.url === "/") {
+  // Carico il template EJS
     fs.readFile("./views/page.ejs", "utf-8", (err, template) => {
       if (err) {
         res.writeHead(500, { "Content-Type": "text/plain" });
