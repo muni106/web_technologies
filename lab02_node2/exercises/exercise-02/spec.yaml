@@ -1,0 +1,120 @@
+openapi: 3.0.3
+info:
+  title: Filmoteca API
+  version: 1.0.0
+  description: API per la gestione di una collezione di film
+servers:
+  - url: http://localhost:3000
+paths:
+  /films:
+    get:
+      summary: Lista di tutti i film
+      responses:
+        '200':
+          description: Elenco dei film
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Film'
+    post:
+      summary: Aggiungi un nuovo film
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Film'
+      responses:
+        '201':
+          description: Film aggiunto con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Film'
+        '400':
+          description: Dati del film non validi
+  /films/{id}:
+    get:
+      summary: Dettagli di un film
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Film trovato
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Film'
+        '404':
+          description: Film non trovato
+    put:
+      summary: Aggiorna un film esistente
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Film'
+      responses:
+        '200':
+          description: Film aggiornato con successo
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Film'
+        '400':
+          description: Dati del film non validi
+        '404':
+          description: Film non trovato
+    delete:
+      summary: Elimina un film
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Film eliminato con successo (nessun contenuto)
+        '404':
+          description: Film non trovato
+
+components:
+  schemas:
+    Film:
+      type: object
+      required:
+        - id
+        - title
+        - director
+      properties:
+        id:
+          type: integer
+          example: 123
+        title:
+          type: string
+          example: Inception
+        director:
+          type: string
+          example: Christopher Nolan
+        year:
+          type: integer
+          example: 2010
+        genres:
+          type: array
+          items:
+            type: string
+          example: ["Sci-Fi", "Thriller"]

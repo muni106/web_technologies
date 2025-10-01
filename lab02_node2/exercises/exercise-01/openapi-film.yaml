@@ -1,0 +1,52 @@
+openapi: 3.0.0
+info:
+  title: Filmoteca API
+  description: API per gestire una collezione di film
+  version: 1.0.0
+  contact: 
+    email: mounir.samite@gmail.com
+
+paths:
+  /film:
+    put:
+      summary: Update film.
+      description: Update an existing pet by Id.
+      operationId: updateFilm
+      requestBody:
+        description: Update an existent film in the filmoteca
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+          application/xml:
+            schema:
+              $ref: '#/components/schemas/Pet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Pet'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pet'
+            application/xml:
+              schema:
+                $ref: '#/components/schemas/Pet'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Pet not found
+        '422':
+          description: Validation exception
+        default:
+          description: Unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+
+# IMPLEMENTATION HERE
